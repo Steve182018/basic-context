@@ -1,24 +1,70 @@
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+import { Link, Outlet, RouterProvider, createBrowserRouter } from 'react-router-dom';
+import './App.css';
+import AppContext from './context/appContext';
+import Home from './pages/Home';
+import About from './pages/About';
+import User from './pages/User';
+
+const Header = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <div>
+          <ul className='header'>
+            <li>
+              <Link className='' to={'/'}>
+                Home
+              </Link>
+            </li>
+            <li>
+             <Link to={'/about'}>
+          
+                About
+              </Link>
+            </li>
+            <li>
+              <Link to={'/user'}>
+
+              User
+              </Link>
+            </li>
+          </ul>
+        </div>
+  )
+}
+
+const routes = createBrowserRouter([
+  {
+    path: '/',
+    element: <>
+      <Header />
+      <Home />
+    </>
+  },
+  {
+    path: '/about',
+    element: <>
+    <Header />
+    <About />
+    </>
+  },
+  {
+    path: '/user',
+    element: <>
+    <Header />
+    <User />
+    </>
+  }
+])
+
+const App = () => {
+
+  return (
+    <AppContext>
+      <RouterProvider router={routes} >
+        <Outlet />
+      </RouterProvider>
+      
+    </AppContext>
   );
 }
 
